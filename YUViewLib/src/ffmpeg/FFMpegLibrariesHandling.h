@@ -471,8 +471,8 @@ public:
   explicit operator bool() const { return this->pkt != nullptr; };
   AVPacket *getPacket()      { update(); return this->pkt; }
   int      getStreamIndex()  { update(); return this->stream_index; }
-  int64_t  getPTS()          { update(); return this->pts; }
-  int64_t  getDTS()          { update(); return this->dts; }
+  uint64_t  getPTS()          { update(); return this->pts; }
+  uint64_t  getDTS()          { update(); return this->dts; }
   int64_t  getDuration()     { update(); return this->duration; }
   int      getFlags()        { update(); return this->flags; }
   bool     getFlagKeyframe() { update(); return this->flags & AV_PKT_FLAG_KEY; }
@@ -497,8 +497,8 @@ private:
 
   // These are private. Use "update" to update them from the AVFormatContext
   AVBufferRef *buf;
-  int64_t pts;
-  int64_t dts;
+  uint64_t pts;
+  uint64_t dts;
   uint8_t *data;
   int size;
   int stream_index;

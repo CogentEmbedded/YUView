@@ -78,8 +78,8 @@ namespace
   typedef struct AVPacket_56
   {
     AVBufferRef *buf;
-    int64_t pts;
-    int64_t dts;
+    uint64_t pts;
+    uint64_t dts;
     uint8_t *data;
     int size;
     int stream_index;
@@ -96,8 +96,8 @@ namespace
   typedef struct AVPacket_57_58
   {
     AVBufferRef *buf;
-    int64_t pts;
-    int64_t dts;
+    uint64_t pts;
+    uint64_t dts;
     uint8_t *data;
     int size;
     int stream_index;
@@ -699,9 +699,9 @@ namespace
     AVPictureType pict_type;
     uint8_t *base[AV_NUM_DATA_POINTERS];
     AVRational sample_aspect_ratio;
-    int64_t pts;
-    int64_t pkt_pts;
-    int64_t pkt_dts;
+    uint64_t pts;
+    uint64_t pkt_pts;
+    uint64_t pkt_dts;
     int coded_picture_number;
     int display_picture_number;
     int quality;
@@ -720,9 +720,9 @@ namespace
     int key_frame;
     AVPictureType pict_type;
     AVRational sample_aspect_ratio;
-    int64_t pts;
-    int64_t pkt_pts;
-    int64_t pkt_dts;
+    uint64_t pts;
+    uint64_t pkt_pts;
+    uint64_t pkt_dts;
     int coded_picture_number;
     int display_picture_number;
     int quality;
