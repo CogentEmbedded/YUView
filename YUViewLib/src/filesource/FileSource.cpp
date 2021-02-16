@@ -174,6 +174,7 @@ FileSource::fileFormat_t FileSource::formatFromFilename(QFileInfo fileInfo)
       regExprList << "([0-9]+)(?:x|X|\\*)([0-9]+)_([0-9]+)(?:Hz)?_([0-9]+)b?[\\._]";    // Something_2160x1440_60_8_more.yuv or Something_2160x1440_60_8b.yuv or Something_2160x1440_60Hz_8_more.yuv
       regExprList << "([0-9]+)(?:x|X|\\*)([0-9]+)_([0-9]+)(?:Hz)?[\\._]";               // Something_2160x1440_60_more.yuv or Something_2160x1440_60.yuv
       regExprList << "([0-9]+)(?:x|X|\\*)([0-9]+)[\\._]";                               // Something_2160x1440_more.yuv or Something_2160x1440.yuv
+      regExprList << "\\[([0-9]+)(?:x|X|\\*)([0-9]+)\\][\\._]";                         // Something_[2160x1440]_more.yuv or Something_2160x1440.yuv
 
       for (QString regExpStr : regExprList)
       {

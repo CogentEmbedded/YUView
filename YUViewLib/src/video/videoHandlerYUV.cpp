@@ -859,6 +859,7 @@ void videoHandlerYUV::setFormatFromCorrelation(const QByteArray &rawYUVData, int
     << QSize(1024, 768)
     << QSize(1280, 720)
     << QSize(1280, 960)
+    << QSize(1280, 1080)
     << QSize(1920, 1072)
     << QSize(1920, 1080);
 
