@@ -209,6 +209,32 @@ yuvPixelFormat guessFormatFromSizeAndName(const QSize size, int bitDepth, bool p
   auto dirName = fileInfo.absoluteDir().dirName();
   checkStrings.append(dirName);
 
+  if (fileInfo.suffix().toLower() == "nv12")
+  {
+    // This should be a 8 bit planar yuv 4:2:0 file with interleaved UV components and YUV order
+    auto fmt = yuvPixelFormat(Subsampling::YUV_420, 8, PlaneOrder::YUV);
+    fmt.uvInterleaved = true;
+    auto bpf = fmt.bytesPerFrame(size);
+    if (bpf != 0 && (fileSize % bpf) == 0)
+    {
+      // Bits per frame and file size match
+      return fmt;
+    }
+  }
+
+  if (fileInfo.suffix().toLower() == "nv16")
+  {
+    // This should be a 8 bit planar yuv 4:2:2 file with interleaved UV components and YUV order
+    auto fmt = yuvPixelFormat(Subsampling::YUV_422, 8, PlaneOrder::YUV);
+    fmt.uvInterleaved = true;
+    auto bpf = fmt.bytesPerFrame(size);
+    if (bpf != 0 && (fileSize % bpf) == 0)
+    {
+      // Bits per frame and file size match
+      return fmt;
+    }
+  }
+
   if (fileInfo.suffix().toLower() == "nv21")
   {
     // This should be a 8 bit planar yuv 4:2:0 file with interleaved UV components and YVU order
