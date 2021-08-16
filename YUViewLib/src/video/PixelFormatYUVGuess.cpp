@@ -260,6 +260,15 @@ PixelFormatYUV guessFormatFromSizeAndName(const Size       size,
       if (checkFormat(fmt, size, fileSize))
         return fmt;
     }
+    // Check if the filename contains NV16
+    if (name.find("nv16") != std::string::npos)
+    {
+      // This should be a 8 bit semi-planar yuv 4:2:2 file with interleaved UV components and YYYYUV
+      // order
+      auto fmt = PixelFormatYUV(Subsampling::YUV_422, 8, PlaneOrder::YUV, false, {}, true);
+      if (checkFormat(fmt, size, fileSize))
+        return fmt;
+    }
 
     // Check if the filename contains NV21
     if (name.find("nv21") != std::string::npos)
