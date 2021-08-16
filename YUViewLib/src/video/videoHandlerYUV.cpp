@@ -1228,8 +1228,12 @@ void videoHandlerYUV::setFormatFromCorrelation(const QByteArray &rawYUVData, int
                                             Size(1024, 768),
                                             Size(1280, 720),
                                             Size(1280, 960),
+                                            Size(1280, 1080),
                                             Size(1920, 1072),
-                                            Size(1920, 1080)});
+                                            Size(1920, 1080),
+                                            Size(1920, 1280),
+                                            Size(1920, 1536),
+                                            Size(2048, 1280),});
 
   // Test bit depths 8, 10 and 16
   std::vector<testFormatAndSize> formatList;
@@ -2899,7 +2903,7 @@ bool videoHandlerYUV::convertYUVPlanarToRGB(const QByteArray &    sourceBuffer,
         chromaInterpolation != ChromaInterpolation::NearestNeighbor)
     {
       // If there is a chroma offset, we must resample the chroma components before we convert them
-      // to RGB. If so, the resampled chroma values are saved in these arrays. We only ignore the 
+      // to RGB. If so, the resampled chroma values are saved in these arrays. We only ignore the
       // chroma offset for other interpolations then nearest neighbor.
       QByteArray uvPlaneChromaResampled[2];
       uvPlaneChromaResampled[0].resize(nrBytesChromaPlane);
