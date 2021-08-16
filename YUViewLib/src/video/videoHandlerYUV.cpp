@@ -3328,9 +3328,17 @@ void videoHandlerYUV::setFormatFromCorrelation(const QByteArray &rawYUVData, int
                                             Size(720, 576),
                                             Size(1024, 768),
                                             Size(1280, 720),
+                                            Size(1280, 800),
                                             Size(1280, 960),
+                                            Size(1280, 944),
+                                            Size(1280, 968),
+                                            Size(1280, 1080),
+                                            Size(1292, 1092),
                                             Size(1920, 1072),
-                                            Size(1920, 1080)});
+                                            Size(1920, 1080),
+                                            Size(1920, 1280),
+                                            Size(1936, 1552),
+                                            Size(2048, 1280)});
 
   // Test bit depths 8, 10 and 16
   std::vector<testFormatAndSize> formatList;
