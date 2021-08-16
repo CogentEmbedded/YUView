@@ -84,7 +84,8 @@ playlistItemRawFile::playlistItemRawFile(const QString &rawFilePath,
   QFileInfo fi(rawFilePath);
   QString   ext = fi.suffix();
   ext           = ext.toLower();
-  if (ext == "yuv" || ext == "nv21" || fmt.toLower() == "yuv" || ext == "y4m")
+  if (ext == "yuv" || ext == "i420" || ext == "nv12" || ext == "nv16" || ext == "nv21" ||
+      fmt.toLower() == "yuv" || ext == "y4m")
   {
     video.reset(new videoHandlerYUV);
     rawFormat = raw_YUV;
@@ -480,7 +481,7 @@ playlistItemRawFile *playlistItemRawFile::newplaylistItemRawFile(const YUViewDom
 
   // We can still not be sure that the file really exists, but we gave our best to try to find it.
   auto newFile = new playlistItemRawFile(filePath, {}, {}, type);
-  
+
   newFile->video->loadPlaylist(root);
   playlistItem::loadPropertiesFromPlaylist(root, newFile);
 
@@ -534,10 +535,13 @@ void playlistItemRawFile::getSupportedFileExtensions(QStringList &allExtensions,
   allExtensions.append("gbr");
   allExtensions.append("brg");
   allExtensions.append("bgr");
+  allExtensions.append("i420");
+  allExtensions.append("nv12");
+  allExtensions.append("nv16");
   allExtensions.append("nv21");
   allExtensions.append("y4m");
 
-  filters.append("Raw YUV File (*.yuv *.nv21)");
+  filters.append("Raw YUV File (*.yuv *.i420 *.nv12 *.nv16 *.nv21)");
   filters.append("Raw RGB File (*.rgb *.rbg *.grb *.gbr *.brg *.bgr)");
   filters.append("YUV4MPEG2 File (*.y4m)");
 }

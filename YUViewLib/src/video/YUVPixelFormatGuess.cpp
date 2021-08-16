@@ -244,6 +244,20 @@ YUVPixelFormat guessFormatFromSizeAndName(
   auto dirName = fileInfo.absoluteDir().dirName().toLower().toStdString();
   checkStrings.push_back(dirName);
 
+  if (fileInfo.suffix().toLower() == "nv12")
+  {
+    // This should be a 8 bit planar yuv 4:2:0 file with interleaved UV components and YUV order
+    auto fmt = YUVPixelFormat(Subsampling::YUV_420, 8, PlaneOrder::YUV, false, {}, true);
+    if (checkFormat(fmt, size, fileSize))
+      return fmt;
+  }
+  if (fileInfo.suffix().toLower() == "nv16")
+  {
+    // This should be a 8 bit planar yuv 4:2:0 file with interleaved UV components and YUV order
+    auto fmt = YUVPixelFormat(Subsampling::YUV_422, 8, PlaneOrder::YUV, false, {}, true);
+    if (checkFormat(fmt, size, fileSize))
+      return fmt;
+  }
   if (fileInfo.suffix().toLower() == "nv21")
   {
     // This should be a 8 bit planar yuv 4:2:0 file with interleaved UV components and YVU order
