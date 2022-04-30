@@ -3389,11 +3389,15 @@ void videoHandlerYUV::setFormatFromCorrelation(const QByteArray &rawYUVData, int
       if (testFormat.format.getBitsPerSample() == 8)
       {
         auto ptr       = (unsigned char *)rawYUVData.data();
+        if (picSize + lumaSamples > rawYUVData.size())
+            continue;
         testFormat.mse = computeMSE(ptr, ptr + picSize, lumaSamples);
       }
       else if (testFormat.format.getBitsPerSample() > 8 &&
                testFormat.format.getBitsPerSample() <= 16)
       {
+        if (picSize / 2 + lumaSamples > rawYUVData.size())
+            continue;
         auto ptr       = (unsigned short *)rawYUVData.data();
         testFormat.mse = computeMSE(ptr, ptr + picSize / 2, lumaSamples);
       }
