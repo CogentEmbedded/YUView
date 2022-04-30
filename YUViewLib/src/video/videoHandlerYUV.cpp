@@ -105,7 +105,7 @@ template <typename T> double computeMSE(T ptr, T ptr2, int numPixels)
   for (int i = 0; i < numPixels; i++)
   {
     int diff = (int)ptr[i] - (int)ptr2[i];
-    sad += diff * diff;
+    sad += std::abs(diff);
   }
 
   return (double)sad / numPixels;
