@@ -3396,7 +3396,7 @@ void videoHandlerYUV::setFormatFromCorrelation(const QByteArray &rawYUVData, int
       else if (testFormat.format.getBitsPerSample() > 8 &&
                testFormat.format.getBitsPerSample() <= 16)
       {
-        if (picSize / 2 + lumaSamples > rawYUVData.size())
+        if (picSize / 2 + 2 * lumaSamples > rawYUVData.size())
             continue;
         auto ptr       = (unsigned short *)rawYUVData.data();
         testFormat.mse = computeMSE(ptr, ptr + picSize / 2, lumaSamples);
@@ -3423,8 +3423,16 @@ void videoHandlerYUV::setFormatFromCorrelation(const QByteArray &rawYUVData, int
   const double mseThreshold = 400;
   if (leastMSE < mseThreshold)
   {
-    setSrcPixelFormat(bestFormat, false);
-    setFrameSize(bestSize);
+    if (!srcPixelFormat.isValid())
+    {
+        setSrcPixelFormat(bestFormat, false);
+        setFrameSize(bestSize);
+    }
+    else
+    {
+        if (!frameSize.isValid())
+            setFrameSize(bestSize);
+    }
   }
 }
 

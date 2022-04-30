@@ -241,15 +241,16 @@ PixelFormatYUV guessFormatFromSizeAndName(const Size       size,
 
   // The name of the folder that the file is in
   auto dirName = fileInfo.absoluteDir().dirName().toLower().toStdString();
+  auto ext = fileInfo.suffix().toLower().toStdString();
 
   if (fileInfo.suffix().toLower() == "v210")
   {
     auto fmt = PixelFormatYUV(PredefinedPixelFormat::V210);
-    if (checkFormat(fmt, size, fileSize))
+    if (!size.isValid() || checkFormat(fmt, size, fileSize))
       return fmt;
   }
 
-  for (const auto &name : {fileName, dirName})
+  for (const auto &name : {ext, fileName, dirName})
   {
     // Check if the filename contains NV12
     if (name.find("nv12") != std::string::npos)
@@ -257,7 +258,7 @@ PixelFormatYUV guessFormatFromSizeAndName(const Size       size,
       // This should be a 8 bit semi-planar yuv 4:2:0 file with interleaved UV components and YYYYUV
       // order
       auto fmt = PixelFormatYUV(Subsampling::YUV_420, 8, PlaneOrder::YUV, false, {}, true);
-      if (checkFormat(fmt, size, fileSize))
+      if (!size.isValid() || checkFormat(fmt, size, fileSize))
         return fmt;
     }
     // Check if the filename contains NV16
@@ -266,7 +267,7 @@ PixelFormatYUV guessFormatFromSizeAndName(const Size       size,
       // This should be a 8 bit semi-planar yuv 4:2:2 file with interleaved UV components and YYYYUV
       // order
       auto fmt = PixelFormatYUV(Subsampling::YUV_422, 8, PlaneOrder::YUV, false, {}, true);
-      if (checkFormat(fmt, size, fileSize))
+      if (!size.isValid() || checkFormat(fmt, size, fileSize))
         return fmt;
     }
 
@@ -276,7 +277,7 @@ PixelFormatYUV guessFormatFromSizeAndName(const Size       size,
       // This should be a 8 bit semi-planar yuv 4:2:0 file with interleaved UV components and YYYYVU
       // order
       auto fmt = PixelFormatYUV(Subsampling::YUV_420, 8, PlaneOrder::YVU, false, {}, true);
-      if (checkFormat(fmt, size, fileSize))
+      if (!size.isValid() || checkFormat(fmt, size, fileSize))
         return fmt;
     }
 

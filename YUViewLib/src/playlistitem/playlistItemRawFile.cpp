@@ -405,21 +405,16 @@ bool playlistItemRawFile::parseY4MFile()
 void playlistItemRawFile::setFormatFromFileName()
 {
   auto fileFormat = this->dataSource.guessFormatFromFilename();
-  if (fileFormat.frameSize.isValid())
-  {
-    this->video->setFrameSize(fileFormat.frameSize);
+  this->video->setFrameSize(fileFormat.frameSize);
 
-    // We were able to extract width and height from the file name using
-    // regular expressions. Try to get the pixel format by checking with the file size.
-    this->video->setFormatFromSizeAndName(fileFormat.frameSize,
-                                          fileFormat.bitDepth,
-                                          fileFormat.packed ? video::DataLayout::Packed
-                                                            : video::DataLayout::Planar,
-                                          dataSource.getFileSize(),
-                                          dataSource.getFileInfo());
-    if (fileFormat.frameRate != -1)
-      this->prop.frameRate = fileFormat.frameRate;
-  }
+  this->video->setFormatFromSizeAndName(fileFormat.frameSize,
+                                        fileFormat.bitDepth,
+                                        fileFormat.packed ? video::DataLayout::Packed
+                                                          : video::DataLayout::Planar,
+                                        dataSource.getFileSize(),
+                                        dataSource.getFileInfo());
+  if (fileFormat.frameRate != -1)
+    this->prop.frameRate = fileFormat.frameRate;
 }
 
 void playlistItemRawFile::createPropertiesWidget()
