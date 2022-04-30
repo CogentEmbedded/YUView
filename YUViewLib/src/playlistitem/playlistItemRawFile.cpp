@@ -75,7 +75,7 @@ playlistItemRawFile::playlistItemRawFile(const QString &rawFilePath,
   QFileInfo fi(rawFilePath);
   QString   ext = fi.suffix();
   ext           = ext.toLower();
-  if (ext == "yuv" || ext == "i420" || ext == "nv12" || ext == "nv16" || ext == "nv21" ||
+  if (ext == "yuv" || ext == "i420" || ext == "nv12" || ext == "nv16" || ext == "raw" || ext == "nv21" ||
       fmt.toLower() == "yuv" || ext == "y4m")
   {
     this->video     = std::make_unique<video::yuv::videoHandlerYUV>();
@@ -536,8 +536,9 @@ void playlistItemRawFile::getSupportedFileExtensions(QStringList &allExtensions,
   allExtensions.append("nv16");
   allExtensions.append("nv21");
   allExtensions.append("y4m");
+  allExtensions.append("raw");
 
-  filters.append("Raw YUV File (*.yuv *.i420 *.nv12 *.nv16 *.nv21)");
+  filters.append("Raw YUV File (*.yuv *.i420 *.nv12 *.nv16 *.nv21, *.raw)");
   filters.append("Raw RGB File (*.rgb *.rbg *.grb *.gbr *.brg *.bgr)");
   filters.append("YUV4MPEG2 File (*.y4m)");
 }

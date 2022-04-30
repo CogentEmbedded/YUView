@@ -281,6 +281,16 @@ PixelFormatYUV guessFormatFromSizeAndName(const Size       size,
         return fmt;
     }
 
+    // Check if the extension contains raw
+    if (ext.find("raw") != std::string::npos)
+    {
+      // This should be a 16 bit raw image
+      // order
+      auto fmt = PixelFormatYUV(Subsampling::YUV_400, 16, PlaneOrder::YUV, false, {}, false);
+      if (!size.isValid() || checkFormat(fmt, size, fileSize))
+        return fmt;
+    }
+
     auto subsampling = findSubsamplingTypeIndicatorInName(name);
 
     // First, lets see if there is a YUV format defined as FFMpeg names them:
