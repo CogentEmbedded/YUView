@@ -253,7 +253,7 @@ PixelFormatYUV guessFormatFromSizeAndName(const Size       size,
   for (const auto &name : {ext, fileName, dirName})
   {
     // Check if the filename contains NV12
-    if (name.find("nv12") != std::string::npos)
+    if (name.find("nv12") != std::string::npos || QString::fromStdString(fileName).startsWith("img_viss_"))
     {
       // This should be a 8 bit semi-planar yuv 4:2:0 file with interleaved UV components and YYYYUV
       // order

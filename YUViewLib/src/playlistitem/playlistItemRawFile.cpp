@@ -73,10 +73,10 @@ playlistItemRawFile::playlistItemRawFile(const QString &rawFilePath,
 
   // Create a new videoHandler instance depending on the input format
   QFileInfo fi(rawFilePath);
-  QString   ext = fi.suffix();
-  ext           = ext.toLower();
+  QString basename = fi.baseName().toLower();
+  QString   ext = fi.suffix().toLower();
   if (ext == "yuv" || ext == "i420" || ext == "nv12" || ext == "nv16" || ext == "raw" || ext == "nv21" ||
-      fmt.toLower() == "yuv" || ext == "y4m")
+      fmt.toLower() == "yuv" || ext == "y4m" || basename.startsWith("img_viss_"))
   {
     this->video     = std::make_unique<video::yuv::videoHandlerYUV>();
     this->rawFormat = video::RawFormat::YUV;

@@ -172,7 +172,7 @@ FileSource::fileFormat_t FileSource::guessFormatFromFilename() const
                                                                  // or Something_2160x1440_60.yuv
           << "([0-9]+)(?:x|X|\\*)([0-9]+)[\\._]"                 // Something_2160x1440_more.yuv or
                                                                  // Something_2160x1440.yuv
-          << "\\[([0-9]+)(?:x|X|\\*)([0-9]+)\\][\\._] ";         // Something_[2160x1440].yuv or
+          << "\\[([0-9]+)(?:x|X|\\*)([0-9]+)\\][\\._]";          // Something_[2160x1440].yuv or
                                                                  // Something_[2160x1440]_more.yuv
 
       for (auto regExpStr : regExprList)
